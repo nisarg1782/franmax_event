@@ -1,0 +1,76 @@
+.opportunities-section {
+  padding: 2rem;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.opportunities-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.opportunities-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.opportunities-cards {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+}
+
+.opportunity-card {
+  min-width: 250px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  flex-shrink: 0;
+}
+
+.opportunity-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.opportunity-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.opportunity-card ul {
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ff6600;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.scroll-btn:hover {
+  background: #e65c00;
+}
+
+.scroll-btn.left {
+  left: -20px;
+}
+
+.scroll-btn.right {
+  right: -20px;
+}
