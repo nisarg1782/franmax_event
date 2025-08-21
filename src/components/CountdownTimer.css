@@ -1,17 +1,46 @@
-.countdown-box {
+.countdown-wrapper {
+  z-index: 9999;
   position: fixed;
   bottom: 20px;
   left: 20px;
+  max-width: 90vw; /* prevent overflow on small screens */
+  touch-action: none; /* Prevent scrolling while dragging anywhere inside the box */
+}
+
+.countdown-wrapper.dragging {
+  cursor: grabbing;
+}
+
+.countdown-header {
+  background: #2c2c54;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: bold;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  cursor: grab;
+  user-select: none;
+  text-align: center;
+}
+
+.countdown-box {
   background: linear-gradient(135deg, #4f46e5, #9333ea);
   color: #fff;
   padding: 15px 20px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  max-width: 250px;
+  /*desktop*/
   text-align: center;
-  width: 220px;
   animation: fadeIn 0.5s ease-in-out;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
 
 .countdown-box h3 {
@@ -24,9 +53,11 @@
 .countdown-timer {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .time-segment {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,15 +84,12 @@
     transform: translateY(0);
   }
 }
+
 .add-calendar-button {
   display: inline-block;
   margin-top: 15px;
   padding: 10px 18px;
-  background: linear-gradient(
-    135deg,
-    #4f46e5,
-    #6d28d9
-  ); /* gradient for depth */
+  background: linear-gradient(135deg, #4f46e5, #6d28d9);
   color: white;
   font-weight: 600;
   text-decoration: none;
@@ -69,6 +97,7 @@
   box-shadow: 0 4px 15px rgba(168, 167, 201, 0.4);
   transition: all 0.3s ease;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  white-space: nowrap;
 }
 
 .add-calendar-button:hover {
@@ -82,14 +111,48 @@
   box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
-/* Responsive */
+/* 📱 Small devices (phones) */
 @media (max-width: 500px) {
   .countdown-box {
-    width: 180px;
-    padding: 10px 15px;
+    max-width: 180px;
+    padding: 10px 12px;
+  }
+  .countdown-box h3 {
     font-size: 14px;
   }
   .time-segment span {
     font-size: 16px;
+  }
+  .time-segment small {
+    font-size: 11px;
+  }
+  .add-calendar-button {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+}
+
+/* 📲 Medium devices (tablets) */
+@media (min-width: 501px) and (max-width: 900px) {
+  .countdown-box {
+    max-width: 220px;
+    padding: 12px 16px;
+  }
+  .countdown-box h3 {
+    font-size: 15px;
+  }
+  .time-segment span {
+    font-size: 18px;
+  }
+  .add-calendar-button {
+    font-size: 13px;
+    padding: 9px 16px;
+  }
+}
+
+/* 💻 Large screens (desktops) */
+@media (min-width: 901px) {
+  .countdown-box {
+    max-width: 250px;
   }
 }

@@ -60,9 +60,9 @@ const ActionModal = ({ onClose }) => {
               >
                 Stall Booking
               </button>
-              <button className="modal-btn sponsor">
+              {/* <button className="modal-btn sponsor">
                 Sponsor Registration
-              </button>
+              </button> */}
               <button 
                 className="modal-btn investor" 
                 onClick={() => setActiveModal("investor")}

@@ -21,6 +21,10 @@ const ContactSection = () => {
               <a href="tel:+918140058080" className="no-link-style">
                 +91 81400 58080
               </a>
+              <br />
+              <a href="tel:+918140073030" className="no-link-style">
+                +91 81400 73030
+              </a>
             </div>
           </div>
 

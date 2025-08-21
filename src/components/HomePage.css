@@ -1,11 +1,10 @@
-/* Parent container */
+/* ========================= Parent Container ========================= */
 .homepage {
   display: flex;
 }
 
 /* Main content wrapper */
 .main-content {
-   /* adjust if you have sidebar */
   padding: 0; /* remove padding so banner spans full width */
   flex: 1;
   background-color: #f9f9f9;
@@ -13,22 +12,20 @@
   transition: margin-left 0.4s ease;
 }
 
-/* Banner section must reset default spacing */
-
 /* Make sure banner is full width */
 .banner {
   width: 100%;
-  height: 400px; /* adjust as needed */
+  height: 400px;
   position: relative;
   background-size: cover;
   background-position: center;
-  margin: 0; /* remove gaps */
+  margin: 0;
 }
 
 /* Sidebar collapse on tablet */
 @media (max-width: 768px) {
   .main-content {
-    
+    /* keep full width */
   }
 }
 
@@ -39,6 +36,133 @@
   }
   .main-content {
     margin-left: 0;
-  
+  }
+}
+
+/* ========================= Floating Thought ========================= */
+.floating-thought {
+  z-index: 9999;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed; /* ensures it stays visible on all devices */
+  animation: floatUpDown 3s ease-in-out infinite; /* floating animation */
+}
+
+.floating-thought:active {
+  cursor: grabbing;
+}
+
+/* Icon image */
+.thought-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;      /* keeps subject in frame */
+  clip-path: circle(50%); /* forces circular crop */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+
+
+.thought-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Thought bubble / cloud */
+.thought-message {
+  position: absolute;
+  bottom: 80px; /* above icon */
+  padding: 12px 20px;
+  background-color: #f5842c; /* default bubble color */
+  color: #fff;
+  font-size: 14px;
+  border-radius: 40px;
+  text-align: center;
+  max-width: 300px;
+  min-width: 160px;
+  width: auto;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  transition: all 0.3s ease-in-out;
+  white-space: normal;
+  line-height: 1.4;
+  word-wrap: break-word;
+  animation: floatUpDown 3s ease-in-out infinite; /* bubble follows icon */
+}
+
+/* Triangle pointer at bottom of bubble */
+.thought-message::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0 10px;
+  border-style: solid;
+  border-color: #060644 transparent transparent transparent;
+  z-index: 10001;
+}
+
+/* Hover effect for bubble */
+.floating-thought:hover .thought-message,
+.thought-message:hover {
+  background-color: #060644;
+}
+
+/* Link inside bubble */
+.thought-message a {
+  display: block; /* new line */
+  margin-top: 5px;
+  color: #ffdd57;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* ========================= Responsive Adjustments ========================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .thought-message {
+    max-width: 240px;
+    min-width: 140px;
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  .thought-icon {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .thought-message {
+    max-width: 180px;
+    min-width: 120px;
+    font-size: 12px;
+    padding: 8px 14px;
+    bottom: 70px; /* closer to icon */
+  }
+
+  .thought-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* ========================= Floating Idle Animation ========================= */
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

@@ -3,19 +3,19 @@ import "./OurPartners.css";
 import venueLogo from "../assets/logo/venue_partner.jpeg";
 import franmaxLogo from "../assets/logo/franmax_logo.png";
 import BrandVolLogo from '../assets/logo/brand _vol.png';
-import GujaratLogo from '../assets/logo/gujarat_samachar.png';
-import DivayLogo from '../assets/logo/divay_bhaskar.png';
-import TimesLogo from '../assets/logo/times_of.jpeg';
+// import GujaratLogo from '../assets/logo/gujarat_samachar.png';
+// import DivayLogo from '../assets/logo/divay_bhaskar.png';
+// import TimesLogo from '../assets/logo/times_of.jpeg';
 
 const OurPartners = () => {
   const partners = [
-    { name: "Print Media Partner", logo: GujaratLogo,company_name:"Gujarat Samachar"},
-    { name: "Print Media Partner", logo: DivayLogo,company_name:"Divya Bhaskar"},
-    { name: "Print Media Partner", logo: TimesLogo,company_name:"Times Of India"}, // change when real logo available
-    { name: "Venue", logo: venueLogo,company_name:"Taj Skyline"},
-    { name: "Franchise Partner", logo: franmaxLogo,company_name:"Franmax India"},
-    { name: "Digital Media Partner", logo: BrandVolLogo,company_name:"BrandVol"}, // change when real logo available
-    { name: "Leasing Partner", logo: venueLogo,company_name:"CommVol"}, // change when real logo available
+    // { name: "Print Media Partner", logo: GujaratLogo,company_name:"Gujarat Samachar"},
+    // { name: "Print Media Partner", logo: DivayLogo,company_name:"Divya Bhaskar"},
+    // { name: "Print Media Partner", logo: TimesLogo,company_name:"Times Of India"}, // change when real logo available
+    // { name: "Venue", logo: venueLogo,company_name:"Taj Skyline"},
+    { name: "Franchise Partner", logo: franmaxLogo, company_name: "Franmax India" },
+    { name: "Digital Media Partner", logo: BrandVolLogo, company_name: "BrandVol" }, // change when real logo available
+    // { name: "Leasing Partner", logo: venueLogo,company_name:"CommVol"}, // change when real logo available
   ];
 
   const scrollRef = useRef(null);
@@ -38,7 +38,6 @@ const OurPartners = () => {
       });
     }
   }, [index, partners.length]);
-
   return (
     <section className="partners-section">
       <div className="partners-container">
@@ -53,7 +52,7 @@ const OurPartners = () => {
               <div className="partner-card" key={idx}>
                 <div className="partner-logo">
                   <img src={partner.logo} alt={partner.name} />
-                   <h3 className="company-name">{partner.company_name}</h3>
+                  <h3 className="company-name">{partner.company_name}</h3>
                 </div>
                 <h3 className="partner-name">{partner.name}</h3>
               </div>
