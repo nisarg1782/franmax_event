@@ -14,12 +14,12 @@ const AboutSection = () => {
     return (
         <section id="about" className="about-section">
             <div className={`about-content ${animate ? "animate" : ""}`}>
-                <h2 className="about-title">Welcome to <span>FRANEXPO 2025</span></h2>
+                <h2 className="about-title">Welcome to <span>FRANXPO 2025</span></h2>
                 <p className="about-quote">
                     "Where industry-leading brands meet 2000+ passionate visitors under one roof!"
                 </p>
                 <p className="about-description">
-                    Franchise Expo 2025 will be hosted at the luxurious <strong>Taj Skyline, Ahmedabad on Sunday,14 September 2025</strong>.
+                    FRANMAX INDIA organise FRANXPO 2025 will be hosted at the luxurious <strong>Taj Skyline, Ahmedabad on Sunday,14 September 2025</strong>.
                     A unique platform where multiple top brands across industries will showcase their offerings,
                     network with professionals, and connect with entrepreneurs eager to explore new opportunities.
                 </p>

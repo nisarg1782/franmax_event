@@ -61,11 +61,13 @@
 }
 
 .partner-logo img {
-  max-width: 120px;
-  max-height: 80px;
+  max-width: 180px;  /* was 120px */
+  max-height: 120px; /* was 80px */
   object-fit: contain;
-  margin-bottom: 12px;
+  margin-bottom: 16px; /* slightly more spacing */
+  padding: 4px;        /* optional: add breathing room inside card */
 }
+
 
 .company-name {
   font-size: 1rem;
