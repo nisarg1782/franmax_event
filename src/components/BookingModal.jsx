@@ -262,32 +262,12 @@ const BookingModal = ({ onClose, type = "stall" }) => {
             </div>
 
             {/* Terms and Conditions */}
-            <div className="form-row terms">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={termsAccepted}
-                  onChange={(e) => setTermsAccepted(e.target.checked)}
-                />
-                I agree to the{" "}
-                <span
-                  className="terms-link"
-                  onClick={() => setTermsModalOpen(true)}
-                  style={{
-                    color: "#ff6b00",
-                    cursor: "pointer",
-                    textDecoration: "underline",
-                  }}
-                >
-                  Terms and Conditions
-                </span>
-              </label>
-            </div>
+           
 
             <button
               type="submit"
               className="submit-btn"
-              disabled={!termsAccepted}
+             
             >
               Submit
             </button>
