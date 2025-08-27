@@ -186,7 +186,7 @@ const BookingModal = ({ onClose, type = "stall" }) => {
             <h3>Why Exhibit With Us?</h3>
             <ul>
               <li>Connect with top investors and franchise owners</li>
-              <li>Showcase your brand to 500+ visitors</li>
+              <li>Showcase your brand to 2000+ visitors</li>
               <li>Expand your business across India</li>
               <li>Get exclusive media coverage & leads</li>
             </ul>

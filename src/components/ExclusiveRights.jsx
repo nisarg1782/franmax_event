@@ -3,7 +3,7 @@ import "./ExclusiveRights.css";
 import { FaCrown, FaBullhorn, FaHandshake } from "react-icons/fa";
 import franmaxLogo from "../assets/logo/franmax_logo.png";   // replace with your actual logo
 import brandvolLogo from "../assets/logo/brand _vol.png"; // replace with your actual logo
-// import commvolLogo from "../assets/logo/commvol.png";   // replace with your actual logo
+import RealEstateLogo from "../assets/logo/real_estate.jpg";   // replace with your actual logo
 
 const ExclusiveRights = () => {
   return (
@@ -21,21 +21,21 @@ const ExclusiveRights = () => {
             <FaCrown className="exclusive-icon" />
             <img src={franmaxLogo} alt="Franmax India" className="exclusive-logo" />
             <h3>Organised & Managed By</h3>
-            <p>Franmax India Pvt Ltd</p>
+            <p>FRANMAX INDIA</p>
           </div>
 
           <div className="exclusive-card">
             <FaBullhorn className="exclusive-icon" />
             <img src={brandvolLogo} alt="BrandVol" className="exclusive-logo" />
             <h3>Digital Media Partner</h3>
-            <p>BrandVol</p>
+            <p>BRANDVOL</p>
           </div>
 
           <div className="exclusive-card">
             <FaHandshake className="exclusive-icon" />
-            <img src={franmaxLogo} alt="CommVol" className="exclusive-logo" />
+            <img src={RealEstateLogo} alt="CommVol" className="exclusive-logo" />
             <h3>Leasing Partner</h3>
-            <p>Clarify Commercial</p>
+            <p>FRANMAX INDIA</p>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import "./OurPartners.css";
 import venueLogo from "../assets/logo/venue_partner.jpeg";
 import franmaxLogo from "../assets/logo/franmax_logo.png";
 import BrandVolLogo from '../assets/logo/brand _vol.png';
-// import GujaratLogo from '../assets/logo/gujarat_samachar.png';
+import RealEstateLogo from '../assets/logo/real_estate.jpg';
 // import DivayLogo from '../assets/logo/divay_bhaskar.png';
 // import TimesLogo from '../assets/logo/times_of.jpeg';
 
@@ -13,9 +13,9 @@ const OurPartners = () => {
     // { name: "Print Media Partner", logo: DivayLogo,company_name:"Divya Bhaskar"},
     // { name: "Print Media Partner", logo: TimesLogo,company_name:"Times Of India"}, // change when real logo available
     // { name: "Venue", logo: venueLogo,company_name:"Taj Skyline"},
-    { name: "Franchise Partner", logo: franmaxLogo, company_name: "Franmax India" },
-    { name: "Digital Media Partner", logo: BrandVolLogo, company_name: "BrandVol" }, // change when real logo available
-    // { name: "Leasing Partner", logo: venueLogo,company_name:"CommVol"}, // change when real logo available
+    { name: "Franchise Partner", logo: franmaxLogo, company_name: "FRANMAX INDIA" },
+    { name: "Digital Media Partner", logo: BrandVolLogo, company_name: "BRANDVOL" }, // change when real logo available
+    { name: "Leasing Partner", logo: RealEstateLogo,company_name:"FRANMAX INDIA"}, // change when real logo available
   ];
 
   const scrollRef = useRef(null);

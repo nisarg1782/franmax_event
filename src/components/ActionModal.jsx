@@ -48,7 +48,7 @@ const ActionModal = ({ onClose }) => {
               </div>
               <div className="benefit-card">
                 <FaBuilding className="benefit-icon" />
-                <p>1000+ Business Visitors</p>
+                <p>2000+ Business Visitors</p>
               </div>
             </div>
 
@@ -67,7 +67,7 @@ const ActionModal = ({ onClose }) => {
                 className="modal-btn investor" 
                 onClick={() => setActiveModal("investor")}
               >
-                Investor Registration
+                Visitor Registration
               </button>
             </div>
           </div>

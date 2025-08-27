@@ -14,9 +14,9 @@ const AboutSection = () => {
     return (
         <section id="about" className="about-section">
             <div className={`about-content ${animate ? "animate" : ""}`}>
-                <h2 className="about-title">Welcome to <span>Franchise Expo 2025</span></h2>
+                <h2 className="about-title">Welcome to <span>FRANEXPO 2025</span></h2>
                 <p className="about-quote">
-                    "Where industry-leading brands meet 1000+ passionate visitors under one roof!"
+                    "Where industry-leading brands meet 2000+ passionate visitors under one roof!"
                 </p>
                 <p className="about-description">
                     Franchise Expo 2025 will be hosted at the luxurious <strong>Taj Skyline, Ahmedabad on Sunday,14 September 2025</strong>.
@@ -45,7 +45,7 @@ const AboutSection = () => {
                     </div>
                     <div className="highlight-card">
                         <FaUsers className="highlight-icon" />
-                        <h3>1000+ Visitors</h3>
+                        <h3>2000+ Visitors</h3>
                         <p>Connect with a massive audience of business owners and investors.</p>
                     </div>
                 </div>

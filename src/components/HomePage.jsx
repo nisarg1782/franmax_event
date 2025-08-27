@@ -96,7 +96,7 @@
 
 
 
-import React, { useState,  useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import './HomePage.css';
 
@@ -107,6 +107,7 @@ import ContactSection from "./ContactSection";
 import OurPartners from "./OurPartners";
 import CountdownTimer from "./CountdownTimer";
 import TestimonialsSection from "./TestimonialsSection";
+import ParticipatingBrands from "./ParticipatingBrands";
 // import OpportunitiesSection from "./OpportunitiesSection"
 
 
@@ -250,8 +251,14 @@ const Homepage = () => {
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}>
+          <ParticipatingBrands />
+        </motion.div>
+
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}>
           <ContactSection />
         </motion.div>
+
+
 
         {/* <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}>
           <TestimonialsSection />

@@ -11,7 +11,7 @@ const RegisterModal = ({ onClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    contact: "",
+    phone: "",
     state: null,
     city: null,
   });
@@ -28,6 +28,7 @@ const RegisterModal = ({ onClose }) => {
     return () => { document.body.style.overflow = ""; };
   }, []);
 
+  // Fetch states
   useEffect(() => {
     const fetchStates = async () => {
       setLoadingStates(true);
@@ -44,6 +45,7 @@ const RegisterModal = ({ onClose }) => {
     fetchStates();
   }, []);
 
+  // Fetch cities when state changes
   useEffect(() => {
     const fetchCities = async () => {
       if (!formData.state) {
@@ -64,12 +66,12 @@ const RegisterModal = ({ onClose }) => {
     fetchCities();
   }, [formData.state]);
 
-  const handleInputChange = (e) => 
+  const handleInputChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
 
-  const handleStateChange = (selected) => 
+  const handleStateChange = (selected) =>
     setFormData({ ...formData, state: selected, city: null });
-  const handleCityChange = (selected) => 
+  const handleCityChange = (selected) =>
     setFormData({ ...formData, city: selected });
 
   const validateForm = () => {
@@ -77,9 +79,9 @@ const RegisterModal = ({ onClose }) => {
     if (!formData.email.trim()) return "Email is required";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) return "Invalid email address";
-    if (!formData.contact.trim()) return "Contact number is required";
-    const contactRegex = /^[6-9][0-9]{9}$/;
-    if (!contactRegex.test(formData.contact))
+    if (!formData.phone.trim()) return "Contact number is required";
+    const phoneRegex = /^[6-9][0-9]{9}$/;
+    if (!phoneRegex.test(formData.phone))
       return "Contact must start with 6-9 and be 10 digits";
     if (!formData.state) return "Please select a state";
     if (!formData.city) return "Please select a city";
@@ -97,44 +99,18 @@ const RegisterModal = ({ onClose }) => {
       toast.error(error);
       return;
     }
-    openRazorpay();
+    saveRegistration();
   };
 
-  const openRazorpay = () => {
-    const options = {
-      key: "rzp_live_R80fc1Istwbzk9", // Replace with live/test key
-      amount: 499 * 100, // INR → paise
-      currency: "INR",
-      name: "Franmax Expo 2025",
-      description: "Expo Registration Fee",
-      image: logo,
-      handler: function (response) {
-        // response.razorpay_payment_id is returned if payment succeeds
-        saveRegistration(response.razorpay_payment_id);
-      },
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-        contact: formData.contact,
-      },
-      theme: { color: "#ff6b00" },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
-
-  const saveRegistration = async (paymentId) => {
+  const saveRegistration = async () => {
     setLoading(true);
     try {
       const payload = {
         name: formData.name,
         email: formData.email,
-        contact: formData.contact,
+        phone: formData.phone,
         state_id: formData.state.value,
         city_id: formData.city.value,
-        fee: 499,
-        payment_id: paymentId,
       };
       console.log("Sending payload:", payload);
 
@@ -181,7 +157,7 @@ const RegisterModal = ({ onClose }) => {
 
           <div className="modal-header">
             <img src={logo} alt="Franmax Expo Logo" className="company-logo" />
-            <h2>Register for Franmax Expo 2025</h2>
+            <h2>Register for Franchise Expo 2025</h2>
             <p className="subtitle">Secure your spot today</p>
           </div>
 
@@ -189,31 +165,72 @@ const RegisterModal = ({ onClose }) => {
 
           <form onSubmit={handleSubmit} className="booking-form">
             <div className="form-row">
-              <input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleInputChange} required />
-              <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleInputChange} required />
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
             </div>
 
             <div className="form-row">
-              <input type="tel" name="contact" placeholder="Contact Number" value={formData.contact} onChange={handleInputChange} required />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Contact Number"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
+              />
             </div>
 
             <div className="form-row">
-              <Select options={states} value={formData.state} onChange={handleStateChange} isLoading={loadingStates} placeholder="Select State" />
-              <Select options={cities} value={formData.city} onChange={handleCityChange} isLoading={loadingCities} placeholder="Select City" isDisabled={!formData.state} />
+              <Select
+                options={states}
+                value={formData.state}
+                onChange={handleStateChange}
+                isLoading={loadingStates}
+                placeholder="Select State"
+              />
+              <Select
+                options={cities}
+                value={formData.city}
+                onChange={handleCityChange}
+                isLoading={loadingCities}
+                placeholder="Select City"
+                isDisabled={!formData.state}
+              />
             </div>
 
             <div className="form-row terms">
               <label>
-                <input type="checkbox" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />
+                <input
+                  type="checkbox"
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                />
                 I agree to the{" "}
-                <span onClick={() => setTermsModalOpen(true)} style={{ color: "#ff6b00", cursor: "pointer", textDecoration: "underline" }}>
+                <span
+                  onClick={() => setTermsModalOpen(true)}
+                  style={{ color: "#ff6b00", cursor: "pointer", textDecoration: "underline" }}
+                >
                   Terms and Conditions
                 </span>
               </label>
             </div>
 
             <button type="submit" className="submit-btn" disabled={!termsAccepted || loading}>
-              Submit & Pay
+              Book Seat
             </button>
           </form>
         </div>

@@ -46,6 +46,7 @@ const Navbar = () => {
         <li><a href="#about" onClick={() => setMenuOpen(false)}>About Us</a></li>
         <li><a href="#exclusive-rights" onClick={() => setMenuOpen(false)}>Exclusivity</a></li>
         <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
+        <li><a href="#particpiating-brands" onClick={() => setMenuOpen(false)}>Participating</a></li>
       </ul>
 
       {/* Hamburger Menu */}

@@ -45,13 +45,13 @@ const ContactSection = () => {
 
         {/* Social Links */}
         <div className="social-links">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="no-link-style">
+          <a href="https://www.facebook.com/@franmaxindia/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" className="no-link-style">
             <FaFacebook />
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="no-link-style">
+          <a href="https://www.instagram.com/franmax_india/?igsh=MWo2YjhteXRqazR6ZQ%3D%3D#" target="_blank" rel="noopener noreferrer" className="no-link-style">
             <FaInstagram />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="no-link-style">
+          <a href="https://www.linkedin.com/company/franmaxindia/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="no-link-style">
             <FaLinkedin />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="no-link-style">
