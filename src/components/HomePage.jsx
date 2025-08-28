@@ -110,10 +110,11 @@ import TestimonialsSection from "./TestimonialsSection";
 import ParticipatingBrands from "./ParticipatingBrands";
 // import OpportunitiesSection from "./OpportunitiesSection"
 
-
-
 // Import your image from assets folder
 import thinkingImg from "../assets/9e5d6c19234ec1aeeba6b782e7c31073.jpg";
+
+// ADDED: Import BookingModal
+import BookingModal from "./BookingModal"; 
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -224,8 +225,21 @@ const FloatingThought = () => {
   );
 };
 
-
 const Homepage = () => {
+  // ADDED: modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("stall");
+
+  // ADDED: detect URL params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get("type");
+    if (typeParam === "stall" || typeParam === "investor") {
+      setModalType(typeParam);
+      setModalOpen(true);
+    }
+  }, []);
+
   return (
     <div className="homepage">
       <main className="main-content">
@@ -258,7 +272,11 @@ const Homepage = () => {
           <ContactSection />
         </motion.div>
 
-
+        {/* Optional manual test buttons */}
+        <div style={{ textAlign: "center", margin: "40px 0" }}>
+          <button onClick={() => { setModalType("stall"); setModalOpen(true); }}>Book Stall</button>
+          <button onClick={() => { setModalType("investor"); setModalOpen(true); }}>Investor Registration</button>
+        </div>
 
         {/* <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}>
           <TestimonialsSection />
@@ -268,6 +286,14 @@ const Homepage = () => {
 
       {/* Floating Thought Icon */}
       <FloatingThought />
+
+      {/* ADDED: Booking modal render */}
+      {modalOpen && (
+        <BookingModal
+          type={modalType}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
