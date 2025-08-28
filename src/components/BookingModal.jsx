@@ -586,7 +586,7 @@ const BookingModal = ({ onClose, type = "stall" }) => {
           </form>
 
           {/* WhatsApp Share Button */}
-          <div style={{ textAlign: "center", marginTop: "15px" }}>
+          {/* <div style={{ textAlign: "center", marginTop: "15px" }}>
             <a
               href={whatsappLink}
               target="_blank"
@@ -606,7 +606,7 @@ const BookingModal = ({ onClose, type = "stall" }) => {
                 Share Stall Booking on WhatsApp
               </button>
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
 

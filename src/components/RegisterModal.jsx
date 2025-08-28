@@ -258,8 +258,6 @@
 
 
 
-
-
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
@@ -411,12 +409,11 @@ const RegisterModal = ({ onClose }) => {
     "We may update terms without prior notice.",
   ];
 
-  // --- WhatsApp share link (Always Live Website) ---
-  const liveDomain = "https://franxpo.com";
-  const investorLink = `${liveDomain}/?type=investor`;
-  const shareMessage = `Join as an Investor at Franchise Expo 2025! Book your spot here: ${investorLink}`;
+  // --- Added WhatsApp share link for Investor form ---
+  const investorLink = "https://franxpo.in/?type=investor";
+  const shareMessage = `Join as an Investor at Franchise Expo 2025! Book here: ${investorLink}`;
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
-  // --- End WhatsApp Section ---
+  // --- End Added WhatsApp Section ---
 
   return (
     <>
@@ -503,27 +500,26 @@ const RegisterModal = ({ onClose }) => {
             </button>
           </form>
 
-          {/* --- WhatsApp Share Button --- */}
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-block",
-              marginTop: "15px",
-              backgroundColor: "#25D366",
-              color: "white",
-              padding: "10px 15px",
-              borderRadius: "6px",
-              textDecoration: "none",
-              fontWeight: "bold",
-              fontSize: "14px"
-            }}
-          >
-            Share on WhatsApp
-          </a>
-          {/* --- End WhatsApp Button --- */}
-
+          {/* --- WhatsApp Share Button Added --- */}
+          {/* <div style={{ marginTop: "1rem", textAlign: "center" }}>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-block",
+                padding: "10px 20px",
+                backgroundColor: "#25D366",
+                color: "#fff",
+                borderRadius: "6px",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              Share Investor Form on WhatsApp
+            </a>
+          </div> */}
+          {/* --- End Added WhatsApp Button --- */}
         </div>
       </div>
 
@@ -545,3 +541,5 @@ const RegisterModal = ({ onClose }) => {
 };
 
 export default RegisterModal;
+
+
