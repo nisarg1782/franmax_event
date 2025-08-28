@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,7 +7,6 @@ import logo from "../assets/logo/logo.png";
 import { getApiUrl } from "../utils/api";
 
 const BookingModal = ({ onClose, type = "stall" }) => {
-  // type can be "stall" or "investor"
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,8 +23,8 @@ const BookingModal = ({ onClose, type = "stall" }) => {
   const [loadingCities, setLoadingCities] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Lock background scroll but allow modal scroll
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -35,15 +32,16 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     };
   }, []);
 
+  // Fetch states
   useEffect(() => {
     const fetchStates = async () => {
       setLoadingStates(true);
       try {
         const res = await fetch(getApiUrl("get-indian-states.php"));
         const data = await res.json();
-        setStates(data.map((item) => ({ value: item.id, label: item.name })));
-      } catch (err) {
-        toast.error("Error fetching states");
+        setStates(data.map((s) => ({ value: s.id, label: s.name })));
+      } catch {
+        toast.error("Failed to load states.");
       } finally {
         setLoadingStates(false);
       }
@@ -51,6 +49,7 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     fetchStates();
   }, []);
 
+  // Fetch cities on state change
   useEffect(() => {
     const fetchCities = async () => {
       if (!formData.state) {
@@ -63,9 +62,9 @@ const BookingModal = ({ onClose, type = "stall" }) => {
           getApiUrl(`get-cities.php?state_id=${formData.state.value}`)
         );
         const data = await res.json();
-        setCities(data.map((item) => ({ value: item.id, label: item.name })));
-      } catch (err) {
-        toast.error("Error fetching cities");
+        setCities(data.map((c) => ({ value: c.id, label: c.name })));
+      } catch {
+        toast.error("Failed to load cities.");
       } finally {
         setLoadingCities(false);
       }
@@ -75,6 +74,7 @@ const BookingModal = ({ onClose, type = "stall" }) => {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const handleStateChange = (selected) =>
     setFormData({ ...formData, state: selected, city: null });
   const handleCityChange = (selected) =>
@@ -97,20 +97,19 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     if (formData.description.length < 10)
       return "Description must be at least 10 characters";
     if (!formData.sponsorship) return "Sponsorship selection is required";
+    if (!termsAccepted) return "You must accept Terms and Conditions";
     return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    
-
     const error = validateForm();
     if (error) {
       toast.error(error);
       return;
     }
 
+    setLoading(true);
     const payload = {
       name: formData.name.trim(),
       email: formData.email.trim(),
@@ -122,22 +121,24 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     };
 
     try {
-      const response = await fetch(getApiUrl("submit-booking.php"), {
+      const res = await fetch(getApiUrl("submit-booking.php"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
+      const data = await res.json();
+      setLoading(false);
 
       if (data.success) {
         toast.success("Your request has been submitted!");
-        onClose();
+        if (onClose) onClose();
       } else {
         toast.error(data.message || "Something went wrong");
       }
     } catch (err) {
+      setLoading(false);
+      toast.error("Network error. Please try again.");
       console.error(err);
-      toast.error("Failed to submit. Please try again.");
     }
   };
 
@@ -146,41 +147,35 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     { value: "no", label: "No" },
   ];
 
-  // Terms content arrays
-  // const termsText = {
-  //   stall: [
-  //     "All bookings are subject to approval by the Franmax Expo team.",
-  //     "Payment must be completed within 7 days of confirmation.",
-  //     "Exhibitors must follow the event guidelines strictly.",
-  //     "Cancellation fees may apply as per the policy.",
-  //     "Franmax Expo reserves the right to modify terms at any time.",
-  //   ],
-  //   investor: [
-  //     "Investor registrations require valid documents for verification.",
-  //     "Participation is subject to approval by the event committee.",
-  //     "Cancellation fees may apply if registration is withdrawn.",
-  //     "Franmax Expo reserves the right to modify terms at any time.",
-  //   ],
-  // };
+  const termsText = [
+    "All bookings are subject to approval by the Franmax Expo team.",
+    "Payment must be completed within 7 days of confirmation.",
+    "Exhibitors must follow the event guidelines strictly.",
+    "Cancellation fees may apply as per the policy.",
+    "Franmax Expo reserves the right to modify terms at any time.",
+  ];
+
+  const handleClose = () => {
+    if (onClose) onClose();
+    else window.history.back();
+  };
 
   return (
     <>
       <div className="modal-overlay">
-        <div className="modal">
-          <button className="close-btn" onClick={onClose}>
+        <div className="modal booking-modal">
+          <button className="close-btn" onClick={handleClose}>
             &times;
           </button>
 
           <div className="modal-header">
             <img src={logo} alt="Franmax Expo Logo" className="company-logo" />
-            <h2>
-              {type === "stall" ? "Book Your Stall" : "Investor Registration"}
-            </h2>
+            <h2>{type === "stall" ? "Book Your Stall" : "Investor Registration"}</h2>
             <p className="subtitle">Secure your spot at Franmax Expo 2025</p>
           </div>
 
           <div className="benefits-section">
-            <h3>Why Exhibit With Us?</h3>
+            <h3>Why Participate?</h3>
             <ul>
               <li>Connect with top investors and franchise owners</li>
               <li>Showcase your brand to 2000+ visitors</li>
@@ -235,7 +230,6 @@ const BookingModal = ({ onClose, type = "stall" }) => {
                 onChange={handleStateChange}
                 isLoading={loadingStates}
                 placeholder="Select State"
-                isSearchable
               />
               <Select
                 options={cities}
@@ -243,7 +237,6 @@ const BookingModal = ({ onClose, type = "stall" }) => {
                 onChange={handleCityChange}
                 isLoading={loadingCities}
                 placeholder="Select City"
-                isSearchable
                 isDisabled={!formData.state}
               />
             </div>
@@ -254,26 +247,38 @@ const BookingModal = ({ onClose, type = "stall" }) => {
                 value={formData.sponsorship}
                 onChange={handleSponsorshipChange}
                 placeholder="Interested in Sponsorship?"
-                isSearchable={false}
               />
             </div>
 
-            {/* Terms and Conditions */}
-           
+            <div className="form-row terms">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                />
+                I agree to the{" "}
+                <span
+                  style={{
+                    color: "#ff6b00",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
+                  onClick={() => setTermsModalOpen(true)}
+                >
+                  Terms and Conditions
+                </span>
+              </label>
+            </div>
 
-            <button
-              type="submit"
-              className="submit-btn"
-             
-            >
+            <button type="submit" className="submit-btn" disabled={loading}>
               Submit
             </button>
           </form>
         </div>
       </div>
 
-      {/* Terms Modal */}
-      {/* {termsModalOpen && (
+      {termsModalOpen && (
         <div className="modal-overlay">
           <div className="modal terms-modal">
             <button
@@ -282,20 +287,17 @@ const BookingModal = ({ onClose, type = "stall" }) => {
             >
               &times;
             </button>
-            <h2>
-              Terms and Conditions -{" "}
-              {type === "stall" ? "Stall Booking" : "Investor Registration"}
-            </h2>
+            <h2>Terms & Conditions</h2>
             <div className="terms-content">
               <ul>
-                {termsText[type].map((item, idx) => (
+                {termsText.map((item, idx) => (
                   <li key={idx}>{item}</li>
                 ))}
               </ul>
             </div>
           </div>
         </div>
-      )} */}
+      )}
 
       <ToastContainer
         position="top-left"

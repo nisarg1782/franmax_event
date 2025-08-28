@@ -20,7 +20,7 @@
   position: relative;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
   overflow-y: auto;
-  max-height: 92vh;
+  max-height: 95vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   animation: fadeInScale 0.35s ease;
 }

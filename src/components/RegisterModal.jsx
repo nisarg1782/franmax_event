@@ -23,12 +23,15 @@ const RegisterModal = ({ onClose }) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
 
+  // Prevent background scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
-  // Fetch states
+  // Fetch states once
   useEffect(() => {
     const fetchStates = async () => {
       setLoadingStates(true);
@@ -45,7 +48,7 @@ const RegisterModal = ({ onClose }) => {
     fetchStates();
   }, []);
 
-  // Fetch cities when state changes
+  // Fetch cities whenever state changes
   useEffect(() => {
     const fetchCities = async () => {
       if (!formData.state) {
@@ -54,7 +57,9 @@ const RegisterModal = ({ onClose }) => {
       }
       setLoadingCities(true);
       try {
-        const res = await fetch(getApiUrl(`get-cities.php?state_id=${formData.state.value}`));
+        const res = await fetch(
+          getApiUrl(`get-cities.php?state_id=${formData.state.value}`)
+        );
         const data = await res.json();
         setCities(data.map((c) => ({ value: c.id, label: c.name })));
       } catch {
@@ -71,6 +76,7 @@ const RegisterModal = ({ onClose }) => {
 
   const handleStateChange = (selected) =>
     setFormData({ ...formData, state: selected, city: null });
+
   const handleCityChange = (selected) =>
     setFormData({ ...formData, city: selected });
 
@@ -124,7 +130,13 @@ const RegisterModal = ({ onClose }) => {
       setLoading(false);
       if (data.success) {
         toast.success("Registration successful!");
-        setTimeout(() => onClose(), 2000);
+        setTimeout(() => {
+          if (onClose) {
+            onClose();
+          } else {
+            window.history.back();
+          }
+        }, 2000);
       } else {
         toast.error(data.message || "Registration failed");
       }
@@ -132,6 +144,15 @@ const RegisterModal = ({ onClose }) => {
       setLoading(false);
       toast.error("Network error while saving registration.");
       console.error("Fetch error:", err);
+    }
+  };
+
+  // Handles close for both popup and page contexts
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      window.history.back();
     }
   };
 
@@ -153,7 +174,9 @@ const RegisterModal = ({ onClose }) => {
     <>
       <div className="modal-overlay">
         <div className="modal register-modal">
-          <button className="close-btn" onClick={onClose}>&times;</button>
+          <button className="close-btn" onClick={handleClose}>
+            &times;
+          </button>
 
           <div className="modal-header">
             <img src={logo} alt="Franmax Expo Logo" className="company-logo" />
@@ -222,14 +245,22 @@ const RegisterModal = ({ onClose }) => {
                 I agree to the{" "}
                 <span
                   onClick={() => setTermsModalOpen(true)}
-                  style={{ color: "#ff6b00", cursor: "pointer", textDecoration: "underline" }}
+                  style={{
+                    color: "#ff6b00",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
                 >
                   Terms and Conditions
                 </span>
               </label>
             </div>
 
-            <button type="submit" className="submit-btn" disabled={!termsAccepted || loading}>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={!termsAccepted || loading}
+            >
               Book Seat
             </button>
           </form>
@@ -239,10 +270,19 @@ const RegisterModal = ({ onClose }) => {
       {termsModalOpen && (
         <div className="modal-overlay">
           <div className="modal terms-modal">
-            <button className="close-btn" onClick={() => setTermsModalOpen(false)}>&times;</button>
+            <button
+              className="close-btn"
+              onClick={() => setTermsModalOpen(false)}
+            >
+              &times;
+            </button>
             <h2>Terms & Conditions</h2>
             <div className="terms-content">
-              <ul>{termsText.map((item, idx) => <li key={idx}>{item}</li>)}</ul>
+              <ul>
+                {termsText.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
