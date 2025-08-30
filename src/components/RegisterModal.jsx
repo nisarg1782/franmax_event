@@ -133,6 +133,7 @@ const RegisterModal = ({ onClose }) => {
         setTimeout(() => {
           if (onClose) {
             onClose();
+            window.location.href = "/"; // Redirect to homepage
           } else {
             window.history.back();
           }
@@ -150,7 +151,7 @@ const RegisterModal = ({ onClose }) => {
   // Handles close for both popup and page contexts
   const handleClose = () => {
     if (onClose) {
-      onClose();
+       window.location.href = "https://franxpo.com/"; // Redirect to homepage // Redirect to homepage
     } else {
       window.history.back();
     }

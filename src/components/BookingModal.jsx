@@ -94,8 +94,8 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     if (!formData.state) return "State is required";
     if (!formData.city) return "City is required";
     if (!formData.description.trim()) return "Description is required";
-    if (formData.description.length < 10)
-      return "Description must be at least 10 characters";
+    if (formData.description.length < 0)
+      return "Description must be at least 1 characters";
     if (!formData.sponsorship) return "Sponsorship selection is required";
     if (!termsAccepted) return "You must accept Terms and Conditions";
     return null;
@@ -131,7 +131,9 @@ const BookingModal = ({ onClose, type = "stall" }) => {
 
       if (data.success) {
         toast.success("Your request has been submitted!");
-        if (onClose) onClose();
+        if (onClose) {
+          window.location.href = "https://franxpo.com/"; // Redirect to homepage
+        }
       } else {
         toast.error(data.message || "Something went wrong");
       }
@@ -154,12 +156,13 @@ const BookingModal = ({ onClose, type = "stall" }) => {
     "Cancellation fees may apply as per the policy.",
     "Franmax Expo reserves the right to modify terms at any time.",
   ];
-
   const handleClose = () => {
-    if (onClose) onClose();
+    if (onClose) {
+      window.location.href = "https://franxpo.com/"; // Redirect to homepage
+    }
     else window.history.back();
   };
-
+  
   return (
     <>
       <div className="modal-overlay">
